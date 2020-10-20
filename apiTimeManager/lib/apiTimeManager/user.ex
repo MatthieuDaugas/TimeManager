@@ -35,7 +35,15 @@ defmodule ApiTimeManager.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user(id) do
+    Repo.get(User, id)
+  end
+
+
+  def get_user_by_params!(params) do
+    from(user in User, where: user.username == ^params["username"] and user.email == ^params["email"])
+    |>Repo.one
+  end
 
   @doc """
   Creates a user.

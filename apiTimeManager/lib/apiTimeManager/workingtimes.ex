@@ -35,7 +35,7 @@ defmodule ApiTimeManager.WorkingTimes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_working_time!(id), do: Repo.get!(WorkingTime, id)
+  def get_working_time(id), do: Repo.get(WorkingTime, id)
 
   @doc """
   Creates a working_time.

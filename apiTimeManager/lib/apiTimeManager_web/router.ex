@@ -7,9 +7,9 @@ defmodule ApiTimeManagerWeb.Router do
 
   scope "/api", ApiTimeManagerWeb do
     pipe_through :api
-    resources "/users", UserController
-    resources "/working_times", WorkingTimeController
-    resources "/clocks", ClockController
+    resources "/users", UserController, except: [:index]
+    get "/users", UserController, :check
+    resources "/working_times", WorkingTimeController, only: [:update, :delete]
   end
 
   # Enables LiveDashboard only for development
