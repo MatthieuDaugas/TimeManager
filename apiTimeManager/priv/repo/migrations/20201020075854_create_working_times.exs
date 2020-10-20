@@ -1,4 +1,4 @@
-defmodule ApiTimeManager.Repo.Migrations.CreateWorking-times do
+defmodule ApiTimeManager.Repo.Migrations.CreateWorkingTimes do
   use Ecto.Migration
 
   def change do
