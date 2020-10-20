@@ -35,7 +35,7 @@ defmodule ApiTimeManager.Clocks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_clock(id), do: Repo.get(Clock, id)
+    def get_clock!(id), do: Repo.get_by!(Clock, user_id: id)#Repo.get!(Clock, id)
 
   @doc """
   Creates a clock.

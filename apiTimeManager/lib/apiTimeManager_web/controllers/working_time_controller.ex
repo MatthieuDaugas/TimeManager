@@ -11,12 +11,10 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
     render(conn, "index.json", working_times: working_times)
   end
 
-  def create(conn, working_time_params) do
-    with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.create_working_time(working_time_params) do
+  def create(conn, params) do
+    with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.create_working_time(params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.working_time_path(conn, :show, working_time))
-      |> render("show.json", working_time: working_time)
     end
   end
 
@@ -25,9 +23,8 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
     render(conn, "show.json", working_time: working_time)
   end
 
-  def update(conn, %{"id" => id, "working_time" => working_time_params}) do
-    working_time = WorkingTimes.get_working_time!(id)
-
+  def update(conn, working_time_params) do
+    working_time = WorkingTimes.get_working_time!(working_time_params["id"])
     with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.update_working_time(working_time, working_time_params) do
       render(conn, "show.json", working_time: working_time)
     end
@@ -49,7 +46,5 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
   def get_one(conn,params) do
     working_time = WorkingTimes.get_working_time_one(params)
     render(conn, "show.json", working_time: working_time)
-
   end
-
 end
