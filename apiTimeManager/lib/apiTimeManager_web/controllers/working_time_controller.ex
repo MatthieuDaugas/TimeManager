@@ -11,7 +11,7 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
     render(conn, "index.json", working_times: working_times)
   end
 
-  def create(conn, %{"working_time" => working_time_params}) do
+  def create(conn, working_time_params) do
     with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.create_working_time(working_time_params) do
       conn
       |> put_status(:created)
