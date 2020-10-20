@@ -15,6 +15,8 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
     with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.create_working_time(params) do
       conn
       |> put_status(:created)
+      |> put_resp_header("location", Routes.working_time_path(conn, :get_one, params["user_id"], working_time))
+      |> render("show.json", working_time: working_time)
     end
   end
 
@@ -39,8 +41,8 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
   end
 
   def get_all(conn, params) do
-    working_time = WorkingTimes.get_working_time_all(params)
-    render(conn, "show.json", working_time: working_time)
+    working_times = WorkingTimes.get_working_time_all(params)
+    render(conn, "index.json", working_times: working_times)
   end
 
   def get_one(conn,params) do

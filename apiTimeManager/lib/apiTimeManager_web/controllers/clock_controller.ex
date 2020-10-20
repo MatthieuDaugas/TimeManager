@@ -20,8 +20,8 @@ defmodule ApiTimeManagerWeb.ClockController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    clock = Clocks.get_clock(id)
+  def show(conn, %{"user_id" => user_id}) do
+    clock = Clocks.get_clock(user_id)
     render(conn, "show.json", clock: clock)
   end
 
