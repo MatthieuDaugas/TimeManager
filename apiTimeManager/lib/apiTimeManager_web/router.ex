@@ -6,17 +6,17 @@ defmodule ApiTimeManagerWeb.Router do
   end
 
   scope "/api", ApiTimeManagerWeb do
-    pipe_through(:api)
+    pipe_through :api
+    resources "/users", UserController, except: [:index]
+    get "/users", UserController, :check
+
     get "/workingtimes/:userID", WorkingTimeController, :get_all
     get "/workingtimes/:userID/:workingtimeID", WorkingTimeController, :get_one
     put "/workingtimes/:id", WorkingTimeController, :update
     post "/workingtimes/:user_id", WorkingTimeController, :create
-
-    resources "/users", UserController, except: [:index]
-    get "/users", UserController, :check
+    delete "/workingtimes/:id",WorkingTimeController, :delete
 
     post "/clocks/:user_id", ClockController, :create
-    #resources "/clocks", ClockController
     get "/clocks/:id", ClockController, :show
   end
 

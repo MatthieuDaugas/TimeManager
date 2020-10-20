@@ -4,7 +4,7 @@ defmodule ApiTimeManagerWeb.ClockController do
   alias ApiTimeManager.Clocks
   alias ApiTimeManager.Clocks.Clock
 
-  action_fallback ApiTimeManagerWeb.FallbackController
+  action_fallback(ApiTimeManagerWeb.FallbackController)
 
   def index(conn, _params) do
     clocks = Clocks.list_clocks()
@@ -21,19 +21,21 @@ defmodule ApiTimeManagerWeb.ClockController do
   end
 
   def show(conn, %{"id" => id}) do
-    clock = Clocks.get_clock!(String.to_integer(id))
+    clock = Clocks.get_clock(id)
     render(conn, "show.json", clock: clock)
   end
 
   def update(conn, %{"id" => id, "clock" => clock_params}) do
     clock = Clocks.get_clock!(id)
+
     with {:ok, %Clock{} = clock} <- Clocks.update_clock(clock, clock_params) do
       render(conn, "show.json", clock: clock)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    clock = Clocks.get_clock!(id)
+    clock = Clocks.get_clock(id)
+
     with {:ok, %Clock{}} <- Clocks.delete_clock(clock) do
       send_resp(conn, :no_content, "")
     end

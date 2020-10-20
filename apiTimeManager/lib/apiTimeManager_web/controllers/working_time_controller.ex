@@ -38,8 +38,8 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
     end
   end
 
-  def get_all(conn) do
-    working_time = WorkingTimes.list_working_times()
+  def get_all(conn, params) do
+    working_time = WorkingTimes.get_working_time_all(params)
     render(conn, "show.json", working_time: working_time)
   end
 
