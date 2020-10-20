@@ -9,7 +9,9 @@ defmodule ApiTimeManagerWeb.Router do
     pipe_through :api
     resources "/users", UserController
     resources "/working_times", WorkingTimeController
-    resources "/clocks", ClockController
+    post "/clocks/:id", ClockController, :create
+    #resources "/clocks", ClockController
+    get "/clocks/:id", ClockController, :show
   end
 
   # Enables LiveDashboard only for development

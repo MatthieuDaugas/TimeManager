@@ -21,7 +21,7 @@ defmodule ApiTimeManagerWeb.ClockController do
   end
 
   def show(conn, %{"id" => id}) do
-    clock = Clocks.get_clock!(id)
+    clock = Clocks.get_clock!(String.to_integer(id))
     render(conn, "show.json", clock: clock)
   end
 
