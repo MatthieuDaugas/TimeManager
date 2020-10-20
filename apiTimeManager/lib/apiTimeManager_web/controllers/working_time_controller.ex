@@ -40,4 +40,16 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def get_all(conn) do
+    working_time = WorkingTimes.list_working_times()
+    render(conn, "show.json", working_time: working_time)
+  end
+
+  def get_one(conn,params) do
+    working_time = WorkingTimes.get_working_time_one(params)
+    render(conn, "show.json", working_time: working_time)
+
+  end
+
 end
