@@ -24,7 +24,7 @@ defmodule ApiTimeManagerWeb.WorkingTimeControllerTest do
   end
 
   describe "index" do
-    test "lists all working-times", %{conn: conn} do
+    test "lists all working_times", %{conn: conn} do
       conn = get(conn, Routes.working_time_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end

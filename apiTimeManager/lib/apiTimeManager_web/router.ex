@@ -8,8 +8,8 @@ defmodule ApiTimeManagerWeb.Router do
   scope "/api", ApiTimeManagerWeb do
     pipe_through :api
     resources "/users", UserController
-    resources "/working-times", WorkingTimeController
-    resources "clocks", ClockController
+    resources "/working_times", WorkingTimeController
+    resources "/clocks", ClockController
   end
 
   # Enables LiveDashboard only for development

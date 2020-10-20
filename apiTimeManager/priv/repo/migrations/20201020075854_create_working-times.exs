@@ -2,7 +2,7 @@ defmodule ApiTimeManager.Repo.Migrations.CreateWorking-times do
   use Ecto.Migration
 
   def change do
-    create table(:working-times) do
+    create table(:working_times) do
       add :start, :naive_datetime
       add :end, :naive_datetime
       add :user_id, references(:users, on_delete: :nothing)
@@ -10,6 +10,6 @@ defmodule ApiTimeManager.Repo.Migrations.CreateWorking-times do
       timestamps()
     end
 
-    create index(:working-times, [:user_id])
+    create index(:working_times, [:user_id])
   end
 end

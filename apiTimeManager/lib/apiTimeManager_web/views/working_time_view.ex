@@ -2,8 +2,8 @@ defmodule ApiTimeManagerWeb.WorkingTimeView do
   use ApiTimeManagerWeb, :view
   alias ApiTimeManagerWeb.WorkingTimeView
 
-  def render("index.json", %{working-times: working-times}) do
-    %{data: render_many(working-times, WorkingTimeView, "working_time.json")}
+  def render("index.json", %{working_times: working_times}) do
+    %{data: render_many(working_times, WorkingTimeView, "working_time.json")}
   end
 
   def render("show.json", %{working_time: working_time}) do

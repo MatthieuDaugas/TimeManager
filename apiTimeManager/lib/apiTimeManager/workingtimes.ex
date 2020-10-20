@@ -9,15 +9,15 @@ defmodule ApiTimeManager.WorkingTimes do
   alias ApiTimeManager.WorkingTimes.WorkingTime
 
   @doc """
-  Returns the list of working-times.
+  Returns the list of working_times.
 
   ## Examples
 
-      iex> list_working-times()
+      iex> list_working_times()
       [%WorkingTime{}, ...]
 
   """
-  def list_working-times do
+  def list_working_times do
     Repo.all(WorkingTime)
   end
 

@@ -2,7 +2,7 @@ defmodule ApiTimeManager.WorkingTimes.WorkingTime do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "working-times" do
+  schema "working_times" do
     field :end, :naive_datetime
     field :start, :naive_datetime
     belongs_to :user, ApiTimeManager.Users.User

@@ -3,7 +3,7 @@ defmodule ApiTimeManager.WorkingTimesTest do
 
   alias ApiTimeManager.WorkingTimes
 
-  describe "working-times" do
+  describe "working_times" do
     alias ApiTimeManager.WorkingTimes.WorkingTime
 
     @valid_attrs %{end: ~N[2010-04-17 14:00:00], start: ~N[2010-04-17 14:00:00]}
@@ -19,9 +19,9 @@ defmodule ApiTimeManager.WorkingTimesTest do
       working_time
     end
 
-    test "list_working-times/0 returns all working-times" do
+    test "list_working_times/0 returns all working_times" do
       working_time = working_time_fixture()
-      assert WorkingTimes.list_working-times() == [working_time]
+      assert WorkingTimes.list_working_times() == [working_time]
     end
 
     test "get_working_time!/1 returns the working_time with given id" do

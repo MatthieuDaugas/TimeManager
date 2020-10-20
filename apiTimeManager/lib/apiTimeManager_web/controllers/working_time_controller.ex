@@ -7,8 +7,8 @@ defmodule ApiTimeManagerWeb.WorkingTimeController do
   action_fallback ApiTimeManagerWeb.FallbackController
 
   def index(conn, _params) do
-    working-times = WorkingTimes.list_working-times()
-    render(conn, "index.json", working-times: working-times)
+    working_times = WorkingTimes.list_working_times()
+    render(conn, "index.json", working_times: working_times)
   end
 
   def create(conn, %{"working_time" => working_time_params}) do
