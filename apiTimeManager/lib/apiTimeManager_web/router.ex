@@ -11,8 +11,9 @@ defmodule ApiTimeManagerWeb.Router do
     #resources "/working_times", WorkingTimeController
     get "/workingtimes/:userID", WorkingTimeController, :get_all
     get "/workingtimes/:userID/:workingtimeID", WorkingTimeController, :get_one
+    resources "/users", UserController, except: [:index]
+    get "/users", UserController, :check
 
-    resources "/clocks", ClockController
   end
 
   # Enables LiveDashboard only for development

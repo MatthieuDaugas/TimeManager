@@ -4,8 +4,7 @@ defmodule ApiTimeManagerWeb.UserController do
   alias ApiTimeManager.Users
   alias ApiTimeManager.Users.User
 
-  action_fallback ApiTimeManagerWeb.FallbackController
-
+  action_fallback(ApiTimeManagerWeb.FallbackController)
 
   def index(conn, _params) do
     users = Users.list_users()
@@ -22,13 +21,17 @@ defmodule ApiTimeManagerWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = Users.get_user(id)
     render(conn, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user!(id)
+  def check(conn, params) do
+    user = Users.get_user_by_params!(params)
+    render(conn, "show.json", user: user)
+  end
 
+  def update(conn, user_params) do
+    user = Users.get_user(user_params["id"])
     with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
       render(conn, "show.json", user: user)
     end
@@ -36,7 +39,6 @@ defmodule ApiTimeManagerWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-
     with {:ok, %User{}} <- Users.delete_user(user) do
       send_resp(conn, :no_content, "")
     end
