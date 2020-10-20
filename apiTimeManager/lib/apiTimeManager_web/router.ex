@@ -9,7 +9,8 @@ defmodule ApiTimeManagerWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:index]
     get "/users", UserController, :check
-    resources "/working_times", WorkingTimeController, only: [:update, :delete]
+    put "/workingtimes", WorkingTimeController, :update
+    post "/workingtimes/:user_id", WorkingTimeController, :create
   end
 
   # Enables LiveDashboard only for development
