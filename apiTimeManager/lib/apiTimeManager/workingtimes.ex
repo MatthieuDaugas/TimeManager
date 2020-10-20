@@ -36,14 +36,15 @@ defmodule ApiTimeManager.WorkingTimes do
 
   """
   def get_working_time!(id), do: Repo.get!(WorkingTime, id)
+
   def get_working_time_one(params) do
     from(workingtime in WorkingTime, where: workingtime.user_id == ^params["userID"] and workingtime.id == ^params["workingtimeID"])
      |> Repo.one
   end
 
-  def get_working_time_one(params) do
-    from(workingtime in WorkingTime, where: workingtime.user_id == ^params["userID"] and workingtime.id == ^params["workingtimeID"])
-     |> Repo.one
+  def get_working_time_all(params) do
+    from(workingtime in WorkingTime, where: workingtime.user_id == ^params["userID"] and workingtime.start >= ^params["start"] and workingtime.end <= ^params["end"])
+        |>Repo.all
   end
 
   @doc """

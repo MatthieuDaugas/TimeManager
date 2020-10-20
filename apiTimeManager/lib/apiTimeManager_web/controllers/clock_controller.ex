@@ -21,7 +21,7 @@ defmodule ApiTimeManagerWeb.ClockController do
   end
 
   def show(conn, %{"id" => id}) do
-    clock = Clocks.get_clock!(id)
+    clock = Clocks.get_clock(id)
     render(conn, "show.json", clock: clock)
   end
 
@@ -34,7 +34,7 @@ defmodule ApiTimeManagerWeb.ClockController do
   end
 
   def delete(conn, %{"id" => id}) do
-    clock = Clocks.get_clock!(id)
+    clock = Clocks.get_clock(id)
 
     with {:ok, %Clock{}} <- Clocks.delete_clock(clock) do
       send_resp(conn, :no_content, "")

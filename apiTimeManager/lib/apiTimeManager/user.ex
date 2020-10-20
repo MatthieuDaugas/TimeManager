@@ -6,6 +6,7 @@ defmodule ApiTimeManager.Users do
   import Ecto.Query, warn: false
   alias ApiTimeManager.Repo
 
+
   alias ApiTimeManager.Users.User
 
   @doc """
