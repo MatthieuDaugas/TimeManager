@@ -8,7 +8,10 @@ defmodule ApiTimeManagerWeb.Router do
   scope "/api", ApiTimeManagerWeb do
     pipe_through :api
     resources "/users", UserController
-    resources "/working_times", WorkingTimeController
+    #resources "/working_times", WorkingTimeController
+    get "/workingtimes/:userID", WorkingTimeController, :get_all
+    get "/workingtimes/:userID/:workingtimeID", WorkingTimeController, :get_one
+
     resources "/clocks", ClockController
   end
 

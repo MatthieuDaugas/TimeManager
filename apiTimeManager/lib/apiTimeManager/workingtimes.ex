@@ -36,6 +36,15 @@ defmodule ApiTimeManager.WorkingTimes do
 
   """
   def get_working_time!(id), do: Repo.get!(WorkingTime, id)
+  def get_working_time_one(params) do
+    from(workingtime in WorkingTime, where: workingtime.user_id == ^params["userID"] and workingtime.id == ^params["workingtimeID"])
+     |> Repo.one
+  end
+
+  def get_working_time_one(params) do
+    from(workingtime in WorkingTime, where: workingtime.user_id == ^params["userID"] and workingtime.id == ^params["workingtimeID"])
+     |> Repo.one
+  end
 
   @doc """
   Creates a working_time.
