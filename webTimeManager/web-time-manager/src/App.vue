@@ -1,18 +1,31 @@
 <template>
   <div id="app">
+
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/user">About</router-link>
-      <router-link to="/workingtime">Home</router-link> |
-      <router-link to="/workingtimes">About</router-link>
-      <router-link to="/clockmanager">Home</router-link> |
-      <router-link to="/chartmanager">Home</router-link> |
-
+      <router-link to="/users" style="margin-top:3%;">User</router-link> |
+      <router-link to="/workingtime">WorkingTime</router-link> |
+      <router-link to="/workingtimes">WorkingTimes</router-link> |
+      <router-link to="/clockmanager">ClockManager</router-link> |
+      <router-link to="/chartmanager">ChartManager</router-link> |
     </div>
-    <router-view />
+
+    <!-- User commun à toutes les pages -->
+    <User></User>
+
+    <router-view/>
   </div>
 </template>
 
+<script>
+import User from './components/User';
+
+export default {
+  components: {
+    User
+  }
+}
+</script>
 
 <style>
 #app {

@@ -1,6 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import about from "../views/About.vue";
+import User from "../components/User.vue";
+import ChartManager from "../components/ChartManager.vue";
+import ClockManager from "../components/ClockManager.vue";
+import WorkingTime from "../components/WorkingTime.vue";
+import WorkingTimes from "../components/WorkingTimes.vue";
 
 Vue.use(VueRouter);
 
@@ -8,41 +12,31 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: about
   },
   {
     path: "/users",
     name: "User",
-    component: about
+    component: User
   },
   {
     path: "/workingtime",
     name: "WorkingTime",
-    component: about
+    component: WorkingTime
   },
   {
     path: "/workingtimes",
     name: "WorkingTimes",
-    component: about
+    component: WorkingTimes
   },
   {
     path: "/clockmanager",
     name: "ClockManager",
-    component: about
+    component: ClockManager
   },
   {
     path: "/chartmanager",
     name: "ChartManager",
-    component: about
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: ChartManager
   }
 ];
 
