@@ -2,6 +2,7 @@ defmodule ApiTimeManagerWeb.Router do
   use ApiTimeManagerWeb, :router
 
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug(:accepts, ["json"])
   end
 
@@ -9,6 +10,8 @@ defmodule ApiTimeManagerWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:index]
     get "/users", UserController, :check
+    options "/users/", UserController, :options
+    options "/users/:userID", UserController, :options
 
     get "/workingtimes/:user_id", WorkingTimeController, :get_all
     get "/workingtimes/:user_id/:workingtimeID", WorkingTimeController, :get_one

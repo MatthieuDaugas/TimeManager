@@ -42,12 +42,18 @@ import Vue from 'vue'
 Vue.use(VueAxios,axios)
 export default {
   
+  created: function() {
+
+  },
   methods: {
     getUser: function()
     {
       //var username = document.getElementById("inline-form-input-name").value;
       //var email = document.getElementById("inline-form-input-username").value;
-      return axios.get('localhost://4000/1');
+      var query = 'http://localhost:4000/api/users/1';
+      axios.get(query, {'Access-Control-Allow-Origin': '*'}).then((response) => {
+      console.log(response);});
+      
     },
 
     updateUser: function() {
@@ -55,7 +61,9 @@ export default {
     },
 
     deleteUser: function() {
-
+      var query = 'http://localhost:4000/api/users/1';
+      axios.delete(query, {'Access-Control-Allow-Origin': '*'}).then((response) => {
+      console.log(response.data);});    
     },
 
     createUser: function(){

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import User from "../components/User.vue";
 import ChartManager from "../components/ChartManager.vue";
 import ClockManager from "../components/ClockManager.vue";
 import WorkingTime from "../components/WorkingTime.vue";
@@ -12,11 +11,6 @@ const routes = [
   {
     path: "/",
     name: "Home",
-  },
-  {
-    path: "/users",
-    name: "User",
-    component: User
   },
   {
     path: "/workingtime",
