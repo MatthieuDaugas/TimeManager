@@ -55,7 +55,7 @@ export default {
       displayDelete: false,
       displayCreate: false,
       selectedWorkingTime: null,
-      userId: 2
+      userId: localStorage.getItem("userID")
     };
   },
   props: ["workingTime"],
@@ -131,7 +131,7 @@ export default {
         .reverse()
         .join("/");
       const splitTime = dateAndTime[1].split(":");
-      const time = `${splitTime[0]}:${splitTime[1]}`;
+      const time = `${splitTime[0]}:${splitTime[1]}:00`;
       return `${date} at ${time}`;
     },
     closeDropDown() {

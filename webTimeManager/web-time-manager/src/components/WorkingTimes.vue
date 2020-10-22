@@ -66,7 +66,7 @@ export default {
   data: function() {
     return {
       data: null,
-      userId: 2,
+      userId: localStorage.getItem('userID'),
       startDate: null,
       startTime: null,
       endDate: null,
@@ -128,14 +128,7 @@ export default {
       return `${hours}h${minutes}`;
     },
     formatDate(dateAndTime) {
-      dateAndTime = dateAndTime.split("T");
-      const date = dateAndTime[0]
-        .split("-")
-        .reverse()
-        .join("/");
-      const splitTime = dateAndTime[1].split(":");
-      const time = `${splitTime[0]}:${splitTime[1]}`;
-      return `${date} at ${time}`;
+      return dateAndTime.split("T").join(" at ");
     },
     getToWorkingTimePage(element) {
       this.$router.push({

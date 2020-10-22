@@ -10,7 +10,6 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: User,
 
   },
   {
@@ -18,7 +17,7 @@ const routes = [
     name: "WorkingTime",
     component: WorkingTime,
     props: (route) => {
-      return {  
+      return {
         workingTime: route.params.element,
         ...route.params
       }
@@ -27,20 +26,17 @@ const routes = [
   {
     path: "/workingtimes",
     name: "WorkingTimes",
-
     component: WorkingTimes
-    
+
   },
   {
     path: "/clockmanager",
     name: "ClockManager",
-
     component: ClockManager
   },
   {
     path: "/chartmanager",
     name: "ChartManager",
-
     component: ChartManager
   }
 ];
@@ -52,13 +48,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-
-  if (localStorage.guest=="false") {
-      // check if use already logged 
-      // if true then go to home
-           return next({path:'/'}); // '/' is home page for example
-      // else then continue to next()
-  }else {
+  if (!localStorage.getItem("userID") && to.path !== "/") {
+    // check if use already logged 
+    // if true then go to home
+    return next({ path: '/' }); // '/' is home page for example
+    // else then continue to next()
+  } else {
     return next();
   }
 });
