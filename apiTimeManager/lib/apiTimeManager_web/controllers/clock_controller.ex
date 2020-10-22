@@ -6,8 +6,8 @@ defmodule ApiTimeManagerWeb.ClockController do
 
   action_fallback(ApiTimeManagerWeb.FallbackController)
 
-  def index(conn, _params) do
-    clocks = Clocks.list_clocks()
+  def index(conn, params) do
+    clocks = Clocks.list_clocks_by_user(params)
     render(conn, "index.json", clocks: clocks)
   end
 

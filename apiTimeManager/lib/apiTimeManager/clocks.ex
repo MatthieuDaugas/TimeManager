@@ -17,8 +17,11 @@ defmodule ApiTimeManager.Clocks do
       [%Clock{}, ...]
 
   """
-  def list_clocks do
-    Repo.all(Clock)
+  def list_clocks_by_user(params) do
+    where = [user_id: params["user_id"]]
+    Clock
+    |> where(^where)
+    |> Repo.all()
   end
 
   @doc """
