@@ -4,21 +4,19 @@ import ChartManager from "../components/ChartManager.vue";
 import ClockManager from "../components/ClockManager.vue";
 import WorkingTime from "../components/WorkingTime.vue";
 import WorkingTimes from "../components/WorkingTimes.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    meta:{guest:localStorage.guest=false},
+    component: User,
 
   },
   {
     path: "/workingtime",
     name: "WorkingTime",
     component: WorkingTime,
-    meta:{guest:localStorage.guest=false},
     props: (route) => {
       return {  
         workingTime: route.params.element,
@@ -29,7 +27,6 @@ const routes = [
   {
     path: "/workingtimes",
     name: "WorkingTimes",
-    meta:{guest:localStorage.guest=false},
 
     component: WorkingTimes
     
@@ -37,14 +34,12 @@ const routes = [
   {
     path: "/clockmanager",
     name: "ClockManager",
-    meta:{guest:localStorage.guest=false},
 
     component: ClockManager
   },
   {
     path: "/chartmanager",
     name: "ChartManager",
-    meta:{guest:localStorage.guest=false},
 
     component: ChartManager
   }

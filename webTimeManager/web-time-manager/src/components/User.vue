@@ -3,6 +3,7 @@
     <div class="user" style="margin-top:3%;" >
       <div  style="display:flex;justify-content:start;">
         <div style="margin-left: 1%;padding-right:1%;">
+
           <b-form inline>
           <label class="sr-only" for="inline-form-input-name">Name</label>
           <b-input
@@ -17,7 +18,16 @@
           </b-input-group>
 
           <b-button v-on:click="getUser()" variant="primary">GetUser</b-button>    
-        </b-form>  
+        </b-form>
+
+      <b-card
+        border-variant="secondary"
+        header="Secondary"
+        header-border-variant="secondary"
+        align="center">
+        <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+      </b-card>
+
         </div>
 
         <div style="padding-right:1%;">
@@ -72,8 +82,6 @@ export default {
         console.log(response.data);
         localStorage.userID = response.data.data.id;
         }).catch(error => console.log(error));
-
-        localStorage.guest=true;
         this.isHidden = !this.isHidden;
       }
     },
@@ -86,8 +94,7 @@ export default {
           username: username_el.value,
           email: email_el.value
         }).then((response) => {
-        console.log(response.data);
-        localStorage.userID = '';});
+        console.log(response.data);});
     },
 
     deleteUser: function() {
@@ -98,7 +105,6 @@ export default {
         axios.delete(query).then((response) => {
         console.log(response.data);
         localStorage.userID = '';
-        localStorage.guest = false;
         this.isHidden=true;});
         alert('User ' + this.username + ' deleted.');   
       }
