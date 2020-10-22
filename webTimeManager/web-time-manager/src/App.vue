@@ -3,7 +3,6 @@
 
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/workingtime">WorkingTime</router-link> |
       <router-link to="/workingtimes">WorkingTimes</router-link> |
       <router-link to="/clockmanager">ClockManager</router-link> |
       <router-link to="/chartmanager">ChartManager</router-link> |
@@ -21,7 +20,7 @@ import User from './components/User';
 
 export default {
   components: {
-    User
+    User    
   }
 }
 </script>

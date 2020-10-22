@@ -2,7 +2,6 @@ defmodule ApiTimeManagerWeb.Router do
   use ApiTimeManagerWeb, :router
 
   pipeline :api do
-    plug(Corsica, origins: "*", allow_headers: ["content-type"])
     plug(:accepts, ["json"])
   end
 
