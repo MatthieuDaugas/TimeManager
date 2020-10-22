@@ -126,7 +126,7 @@ export default {
         })
         .then(() => {
           this.username = username_el.value;
-          this.email = email_el.value;
+          this.email = email_el.value;    
         });
     },
 

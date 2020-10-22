@@ -75,7 +75,6 @@ export default {
         });
     },
     getClocks() {
-      console.log(this.userId);
       axios
         .get(`http://localhost:4000/api/clocks/${this.userId}`)
         .then(res => {
