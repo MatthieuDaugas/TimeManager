@@ -49,7 +49,7 @@ export default {
       data: null,
       startDateTime: null,
       clockIn: false,
-      userId: 2
+      userId: localStorage.getItem('userID')
     };
   },
   created: function() {
@@ -75,6 +75,7 @@ export default {
         });
     },
     getClocks() {
+      console.log(this.userId);
       axios
         .get(`http://localhost:4000/api/clocks/${this.userId}`)
         .then(res => {
