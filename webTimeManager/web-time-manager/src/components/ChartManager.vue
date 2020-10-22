@@ -33,7 +33,7 @@ export default {
             clock.end = nextExist
               ? clocks[i + 1].time.split("T").join(" ")
               : null;
-            this.data.unshift(clock);
+            this.clocks.unshift(clock);
           }
         })
         .catch(err => console.log(err));
