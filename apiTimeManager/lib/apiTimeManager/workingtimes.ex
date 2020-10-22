@@ -46,11 +46,24 @@ defmodule ApiTimeManager.WorkingTimes do
   end
 
   def get_working_time_all(params) do
-    from(workingtime in WorkingTime,
-      where:
-        workingtime.user_id == ^params["user_id"] and workingtime.start >= ^params["start"] and
-          workingtime.end <= ^params["end"]
-    )
+    where = [user_id: params["user_id"]]
+
+    startDate =
+      if params["start"] do
+        dynamic([workingtime], workingtime.start >= ^params["start"])
+      else
+        true
+      end
+    endDate =
+      if params["end"] do
+        dynamic([workingtime], workingtime.end <= ^params["end"])
+      else
+        true
+      end
+    WorkingTime
+    |> where(^where)
+    |> where(^startDate)
+    |> where(^endDate)
     |> Repo.all()
   end
 

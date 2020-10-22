@@ -1,6 +1,6 @@
 defmodule ApiTimeManager.MixProject do
   use Mix.Project
-
+  {:corsica, "~> 0.4"}
   def project do
     [
       app: :apiTimeManager,

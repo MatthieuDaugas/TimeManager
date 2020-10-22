@@ -15,7 +15,13 @@ const routes = [
   {
     path: "/workingtime",
     name: "WorkingTime",
-    component: WorkingTime
+    component: WorkingTime,
+    props: (route) => {
+      return {  
+        workingTime: route.params.element,
+        ...route.params
+      }
+    }
   },
   {
     path: "/workingtimes",
