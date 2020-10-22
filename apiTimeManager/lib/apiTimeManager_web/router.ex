@@ -19,7 +19,7 @@ defmodule ApiTimeManagerWeb.Router do
     delete "/workingtimes/:id",WorkingTimeController, :delete
 
     post "/clocks/:user_id", ClockController, :create
-    get "/clocks/:user_id", ClockController, :show
+    get "/clocks/:user_id", ClockController, :index
   end
 
   if Mix.env() in [:dev, :test] do

@@ -29,7 +29,7 @@
       <b-button variant="primary" @click="reinitFilters" class="px-4"
         >Reset</b-button
       >
-      <b-button variant="primary" @click="getWorkingTimes" class="px-4"
+      <b-button variant="primary" @click="getWorkingTimes" class="px-4" 
         >Search</b-button
       >
     </div>
