@@ -49,4 +49,5 @@ defmodule ApiTimeManagerWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug ApiTimeManagerWeb.Router
+  plug CORSPlug
 end
