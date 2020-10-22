@@ -73,7 +73,7 @@ export default {
         localStorage.userID = response.data.data.id;
         }).catch(error => console.log(error));
 
-        localStorage.guest=true
+        localStorage.guest=true;
         this.isHidden = !this.isHidden;
       }
     },
@@ -97,7 +97,9 @@ export default {
         let query = 'http://localhost:4000/api/users/'+localStorage.userID;
         axios.delete(query).then((response) => {
         console.log(response.data);
-        localStorage.userID = '';});
+        localStorage.userID = '';
+        localStorage.guest = false;
+        this.isHidden=true;});
         alert('User ' + this.username + ' deleted.');   
       }
     },
@@ -125,8 +127,7 @@ export default {
           email: this.email
         }).then((response) => {
           console.log(response.data);
-          this.userID = response.data.data.id;
-          localStorage.userID = this.userID;
+          this.getUser();
         }); 
         }
     }
