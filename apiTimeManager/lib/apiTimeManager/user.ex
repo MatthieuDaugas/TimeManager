@@ -41,6 +41,11 @@ defmodule ApiTimeManager.Users do
   end
 
 
+  def get_all_users() do
+    from(users in User, where: users.id > 0)
+    |>Repo.all()
+  end
+
   def get_user_by_params!(params) do
     from(user in User, where: user.username == ^params["username"] and user.email == ^params["email"])
     |>Repo.one

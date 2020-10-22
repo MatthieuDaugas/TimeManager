@@ -1,15 +1,17 @@
 <template>
   <div id="app">
 
+        
+    <!-- User commun à toutes les pages -->
+    <User></User>
+    
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/workingtimes">WorkingTimes</router-link> |
       <router-link to="/clockmanager">ClockManager</router-link> |
       <router-link to="/chartmanager">ChartManager</router-link> |
     </div>
-        
-    <!-- User commun à toutes les pages -->
-    <User></User>
+
 
     <router-view/>
   </div>

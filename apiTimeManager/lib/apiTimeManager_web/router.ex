@@ -11,6 +11,7 @@ defmodule ApiTimeManagerWeb.Router do
     get "/users", UserController, :check
     options "/users/", UserController, :options
     options "/users/:userID", UserController, :options
+    get "/allusers", UserController, :getallusers
 
     get "/workingtimes/:user_id", WorkingTimeController, :get_all
     get "/workingtimes/:user_id/:workingtimeID", WorkingTimeController, :get_one

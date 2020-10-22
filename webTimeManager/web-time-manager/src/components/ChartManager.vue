@@ -1,13 +1,19 @@
 <template>
   <div class="ChartManager" style="margin-top:3%;">
     <h1>This is ChartManager page</h1>
+      <BarGraph></BarGraph>
   </div>
+
+
 </template>
 
 <script>
 import axios from "axios";
-
+import BarGraph from './BarGraph'
 export default {
+    components: {
+    BarGraph    
+  },
   data: function() {
     return {
       clocks: null,
