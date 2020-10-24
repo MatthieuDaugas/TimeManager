@@ -6,9 +6,11 @@ defmodule ApiTimeManagerWeb.ClockController do
 
   action_fallback(ApiTimeManagerWeb.FallbackController)
 
+  @spec index(Plug.Conn.t(), nil | maybe_improper_list | map) :: Plug.Conn.t()
   def index(conn, params) do
     clocks = Clocks.list_clocks_by_user(params)
-    render(conn, "index.json", clocks: clocks)
+    count = Clocks.count_clocks(params)
+    render(conn, "index.json", %{clocks: clocks, count: count})
   end
 
   def create(conn, clock_params) do

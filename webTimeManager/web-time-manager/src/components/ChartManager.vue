@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded">
-    Données
+    <BarGraph/>
   </div>
   <div v-else class="no-data">
     <div class="no-data-text">
@@ -16,13 +16,19 @@
     </div>
     <img src="../assets/icons/empty-office.png" alt="" />
   </div>
+
+
 </template>
 
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
 
+import BarGraph from './BarGraph'
 export default {
+    components: {
+    BarGraph    
+  },
   data: function() {
     return {
       clocks: null,

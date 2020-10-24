@@ -1,8 +1,19 @@
 <template>
   <header>
-    <div v-if="userID" class="user" style="margin-top:3%;">
-      <div style="display:flex;justify-content:start;">
-        <div style="margin-left: 1%;padding-right:1%;">
+
+    <div>
+      <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar-brand >TimeManager</b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <b-nav-item>Horaires</b-nav-item>
+            <b-nav-item >Agenda</b-nav-item>
+          </b-navbar-nav>
+          <b-navbar-nav class="ml-auto">
+       <div >
           <b-form inline>
             <label class="sr-only" for="inline-form-input-name">Name</label>
             <b-input
@@ -24,35 +35,23 @@
             <b-button v-on:click="getUser()" variant="primary"
               >GetUser</b-button
             >
+            <b-button v-on:click="createUser()" variant="primary"
+              >CreateUser</b-button
+            >
+            
           </b-form>
         </div>
-
-        <div style="padding-right:1%;">
-          <b-button
-            v-on:click="updateUser()"
-            v-if="!isHidden"
-            variant="outline-info"
-            >UpdateUser</b-button
-          >
-        </div>
-
-        <div style="padding-right:1%;">
-          <b-button
-            v-on:click="deleteUser()"
-            v-if="!isHidden"
-            variant="outline-danger"
-            >DeleteUser</b-button
-          >
-        </div>
-        <div style="padding-right:1%;">
-          <b-button
-            class="delUser"
-            v-on:click="createUser()"
-            variant="outline-primary"
-            >CreateUser</b-button
-          >
-        </div>
-      </div>
+            <b-nav-item-dropdown v-if="!isHidden" right>
+              <template #button-content>
+                <em >%{username}</em>
+              </template>
+              <b-dropdown-item v-on:click="updateUser()">Update profile</b-dropdown-item>
+              <b-dropdown-item v-on:click="deleteUser()">Delete profile</b-dropdown-item>
+              <b-dropdown-item v-on:click="logout()" >Sign Out</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
     </div>
     <div v-if="!userID" class="center-card">
       <h1>Select or Create a user</h1>
@@ -171,6 +170,11 @@ export default {
         });
         alert("User " + this.username + " deleted.");
       }
+    },
+
+    logout: function() {
+      localStorage.userID = null;
+      this.isHidden = true;
     },
 
     createUser: function() {
