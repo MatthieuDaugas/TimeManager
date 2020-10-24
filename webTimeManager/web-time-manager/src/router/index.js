@@ -4,15 +4,10 @@ import ChartManager from "../components/ChartManager.vue";
 import ClockManager from "../components/ClockManager.vue";
 import WorkingTime from "../components/WorkingTime.vue";
 import WorkingTimes from "../components/WorkingTimes.vue";
-
+import store from "../store";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-
-  },
   {
     path: "/workingtime",
     name: "WorkingTime",
@@ -36,7 +31,7 @@ const routes = [
     component: ClockManager
   },
   {
-    path: "/chartmanager",
+    path: "/dashboard",
     name: "ChartManager",
     component: ChartManager
   }
@@ -49,10 +44,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!localStorage.getItem("userID") && to.path !== "/") {
+  if (!store?.state?.userId && to.path !== "/") {
     // check if use already logged 
     // if true then go to home
-    return next({ path: '/' }); // '/' is home page for example
+    return next({ path: '/dashboard' }); // '/' is home page for example
     // else then continue to next()
   } else {
     return next();

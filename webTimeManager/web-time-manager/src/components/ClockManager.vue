@@ -34,6 +34,13 @@
           </tr>
         </tbody>
       </table>
+      <div class="pager">
+        <Pager
+          :totalPages="totalPages"
+          :page="page"
+          v-on:changePage="changePage($event)"
+        />
+      </div>
     </div>
     <div v-else class="no-data">
       No data to display
@@ -42,56 +49,77 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import axios from "axios";
+import Pager from "./Pager";
+
 export default {
   data: function() {
     return {
       data: null,
       startDateTime: null,
       clockIn: false,
-      userId: localStorage.getItem('userID')
+      page: 1,
+      totalPages: null
     };
+  },
+  computed: mapState({
+    userId: state => state.userId
+  }),
+  components: {
+    Pager
   },
   created: function() {
     this.getClocks();
   },
   methods: {
     clock() {
-      this.clockIn = !this.clockIn;
-      const clock = { time: new Date(), status: this.clockIn };
-
+      const clock = { time: new Date(), status: !this.clockIn };
       axios
         .post(`http://localhost:4000/api/clocks/${this.userId}`, clock)
         .then(() => {
-          clock.time = this.formatDate(clock.time);
-          this.startDateTime = clock.time;
-          if (!this.clockIn) {
-            this.data[0].status = false;
-            this.data[0].end = clock.time;
-          } else {
-            this.data.unshift({ start: clock.time, status: true });
+          this.startDateTime = this.formatDate(clock.time)
+          this.clockIn = !this.clockIn;
+          if (this.page === 1) {
+            console.log(this.data[0].status);
+            if (this.data[0].status) {
+              this.data[0].status = false;
+              this.data[0].end = this.startDateTime;
+            } else {
+              this.data.unshift({ status: true, start: this.startDateTime });
+            }
           }
-          console.log(this.clockIn);
         });
     },
     getClocks() {
       axios
-        .get(`http://localhost:4000/api/clocks/${this.userId}`)
+        .get(
+          `http://localhost:4000/api/clocks/${this.userId}?page=${this.page}`
+        )
         .then(res => {
           const clocks = res?.data?.data;
-          const lastClock = clocks[clocks.length - 1] || { status: false };
-          this.startDateTime = lastClock.time.split("T").join(" ");
-          this.clockIn = lastClock.status;
-          this.data = [];
-          for (let i = 0; i < clocks.length; i += 2) {
-            const clock = { start: clocks[i].time.split("T").join(" ") };
-            const nextExist = i < clocks.length - 1;
-            clock.status = !nextExist;
-            clock.end = nextExist
-              ? clocks[i + 1].time.split("T").join(" ")
-              : null;
-            this.data.unshift(clock);
-          } 
+          console.log(clocks);
+          if (clocks) {
+            if (this.page === 1) {
+              const lastClock = clocks[0] || { status: false };
+              this.startDateTime = lastClock.time.split("T").join(" ");
+              this.clockIn = lastClock.status;
+            }
+            const count = res.data.count;
+            this.totalPages = Math.ceil((!count % 2 ? count : count - 1) / 20);
+            this.data = [];
+            for (let i = 0; i < clocks.length; i++) {
+              const clock = {};
+              clock.status = !i && this.page === 1 ? clocks[i].status : false;
+              if (clock.status) {
+                clock.start = clocks[i].time.split("T").join(" ");
+              } else {
+                clock.end = clocks[i].time.split("T").join(" ");
+                clock.start = clocks[++i].time.split("T").join(" ");
+              }
+              this.data.push(clock);
+            }
+          }
         })
         .catch(err => console.log(err));
     },
@@ -108,6 +136,10 @@ export default {
       let seconds = date.getSeconds();
       seconds = seconds > 9 ? seconds : "0" + seconds;
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    },
+    changePage(page) {
+      this.page = page;
+      this.getClocks();
     }
   }
 };
@@ -143,6 +175,7 @@ export default {
   & #data-list {
     margin-top: 20px;
     display: flex;
+    flex-direction: column;
     & table {
       width: 50%;
       margin: 0 auto;
@@ -157,6 +190,9 @@ export default {
     margin-top: 20px;
     font-weight: bold;
     font-size: 20px;
+  }
+  & .pager {
+    margin: 0 auto;
   }
 }
 </style>

@@ -29,7 +29,7 @@
       <b-button variant="primary" @click="reinitFilters" class="px-4"
         >Reset</b-button
       >
-      <b-button variant="primary" @click="getWorkingTimes" class="px-4" 
+      <b-button variant="primary" @click="getWorkingTimes" class="px-4"
         >Search</b-button
       >
     </div>
@@ -62,11 +62,12 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
+
 export default {
   data: function() {
     return {
       data: null,
-      userId: localStorage.getItem('userID'),
       startDate: null,
       startTime: null,
       endDate: null,
@@ -77,6 +78,9 @@ export default {
       }
     };
   },
+  computed: mapState({
+    userId: state => state.userId
+  }),
   created: function() {
     this.getWorkingTimes();
   },

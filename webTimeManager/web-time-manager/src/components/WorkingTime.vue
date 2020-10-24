@@ -47,6 +47,7 @@
 <script>
 import DateForm from "./DateForm";
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   data: function() {
@@ -54,14 +55,16 @@ export default {
       displayUpdate: false,
       displayDelete: false,
       displayCreate: false,
-      selectedWorkingTime: null,
-      userId: localStorage.getItem("userID")
+      selectedWorkingTime: null
     };
   },
   props: ["workingTime"],
   components: {
     DateForm
   },
+  computed: mapState({
+    userId: state => state.userId
+  }),
   created: function() {
     if (!this.workingTime) {
       this.$router.push({ name: "WorkingTimes" });

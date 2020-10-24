@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="user" style="margin-top:3%;">
+    <div v-if="userID" class="user" style="margin-top:3%;">
       <div style="display:flex;justify-content:start;">
         <div style="margin-left: 1%;padding-right:1%;">
           <b-form inline>
@@ -17,7 +17,7 @@
             <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
               <b-input
                 id="inline-form-input-email"
-                placeholder="email"
+                placeholder="Email"
               ></b-input>
             </b-input-group>
 
@@ -54,6 +54,36 @@
         </div>
       </div>
     </div>
+    <div v-if="!userID" class="center-card">
+      <h1>Select or Create a user</h1>
+      <b-form class="center-form" v-on:submit.prevent="getUser()">
+        <label class="sr-only" for="inline-form-input-name">Name</label>
+        <b-input
+          class="card-input"
+          id="inline-form-input-username"
+          placeholder="Username"
+        ></b-input>
+
+        <label class="sr-only" for="inline-form-input-username">Username</label>
+        <b-input-group prepend="@" class="card-input">
+          <b-input id="inline-form-input-email" placeholder="Email"></b-input>
+        </b-input-group>
+        <div class="form-buttons">
+          <button class="button-classic" variant="primary" type="submit">
+            Get
+          </button>
+          <button
+            class="button-classic"
+            v-on:click="createUser()"
+            variant="primary"
+            type="button"
+          >
+            Create
+          </button>
+        </div>
+        <span class="error card-form-error">{{ error }}</span>
+      </b-form>
+    </div>
   </header>
 </template>
 
@@ -69,12 +99,9 @@ export default {
       userID: null,
       username: "",
       email: "",
-      isHidden: true
+      isHidden: true,
+      error: null
     };
-  },
-  created: function() {
-    this.isHidden = localStorage.getItem("userID") == null;
-    console.log(this.isHidden);
   },
   methods: {
     getUser: function() {
@@ -103,14 +130,14 @@ export default {
               this.username = user.username;
               this.email = user.email;
               this.userID = user.id;
-              localStorage.userID = user.id;
+              this.$store.dispatch("change", user.id);
             } else {
               console.log("User not found");
             }
           })
           .catch(error => console.log(error));
-        if (this.$router.history.current.path !== "/") {
-          this.$router.push("/");
+        if (this.$router.history.current.path !== "/dashboard") {
+          this.$router.push("/dashboard");
         }
       }
     },
@@ -118,7 +145,7 @@ export default {
     updateUser: function() {
       let username_el = document.getElementById("inline-form-input-username");
       let email_el = document.getElementById("inline-form-input-email");
-      let query = "http://localhost:4000/api/users/" + localStorage.userID;
+      let query = "http://localhost:4000/api/users/" + this.userID;
       axios
         .put(query, {
           username: username_el.value,
@@ -126,17 +153,20 @@ export default {
         })
         .then(() => {
           this.username = username_el.value;
-          this.email = email_el.value;    
+          this.email = email_el.value;
         });
     },
 
     deleteUser: function() {
-      if (localStorage.userID == "") {
+      if (!this.userID) {
         alert("Cannot delete unselected user.");
       } else {
-        let query = "http://localhost:4000/api/users/" + localStorage.userID;
+        let query = "http://localhost:4000/api/users/" + this.userID;
         axios.delete(query).then(() => {
-          localStorage.userID = null;
+          this.$store.dispatch("change", null);
+          this.userID = null;
+          this.email = null;
+          this.username = null;
           this.isHidden = true;
         });
         alert("User " + this.username + " deleted.");
@@ -168,9 +198,72 @@ export default {
           })
           .then(() => {
             this.getUser();
+          })
+          .catch(err => {
+            const code = parseInt(("" + err).split("code ")[1].substring(0, 3));
+            if (code === 422) {
+              this.error = "This user already exist";
+            }
           });
       }
     }
   }
 };
 </script>
+
+<style lang="scss">
+header {
+  background-color: #575366;
+  height: 100px;
+}
+.error {
+  color: red;
+}
+.center-card {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  border-radius: 3px;
+  padding: 20px;
+  box-shadow: 0px 0 20px 0 rgba(172, 183, 213, 0.2);
+  & h1 {
+    margin: 0 auto;
+    font-size: 26px;
+    width: 300px;
+    text-align: center;
+    color: #32292f;
+    border-left: 3px solid #575366;
+  }
+  & .center-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    & .card-input {
+      margin: 0 auto 30px auto;
+      width: 300px;
+    }
+  }
+  & .form-buttons {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+  }
+  & .button-classic {
+    width: 80px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #7484b4;
+    color: white;
+  }
+  & .card-form-error {
+    margin-top: 10px;
+  }
+}
+</style>
