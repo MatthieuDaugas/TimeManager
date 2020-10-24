@@ -5,10 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userId: ''
+    userId: null
   },
   mutations: {
     change(state, userId) {
+      console.log(userId);
       state.userId = userId;
     }
   },

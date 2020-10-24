@@ -1,21 +1,6 @@
 <template>
   <div id="app">
-<<<<<<< HEAD
     <!-- User commun à toutes les pages -->
-=======
-
-        
-    <!-- User commun à toutes les pages -->
-    <User></User>
-    
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/workingtimes">WorkingTimes</router-link> |
-      <router-link to="/clockmanager">ClockManager</router-link> |
-      <router-link to="/chartmanager">ChartManager</router-link> |
-    </div>
-
->>>>>>> da1f53ad25a23c7f7f7d99fc05c4a5f3bb41d108
 
     <div class="body col-12 p-0 w-100  d-flex mx-auto">
       <div class="p-0 col-2 ">
@@ -60,6 +45,7 @@ export default {
 
 .body {
   height: 100vh;
+  overflow-x: hidden;
 }
 .main-container {
   background-color: #d1e3dd;

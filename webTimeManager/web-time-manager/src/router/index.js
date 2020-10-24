@@ -23,7 +23,6 @@ const routes = [
     path: "/workingtimes",
     name: "WorkingTimes",
     component: WorkingTimes
-
   },
   {
     path: "/clockmanager",
@@ -44,7 +43,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!store?.state?.userId && to.path !== "/") {
+  console.log(store?.state?.userId);
+  if (!store?.state?.userId && to.path !== "/dashboard") {
     // check if use already logged 
     // if true then go to home
     return next({ path: '/dashboard' }); // '/' is home page for example

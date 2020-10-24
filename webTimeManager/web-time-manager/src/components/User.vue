@@ -1,59 +1,80 @@
 <template>
   <header>
-
-    <div>
-      <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand >TimeManager</b-navbar-brand>
-
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <b-nav-item>Horaires</b-nav-item>
-            <b-nav-item >Agenda</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-       <div >
-          <b-form inline>
-            <label class="sr-only" for="inline-form-input-name">Name</label>
-            <b-input
-              id="inline-form-input-username"
-              class="mb-2 mr-sm-2 mb-sm-0"
-              placeholder="Username"
-            ></b-input>
-
-            <label class="sr-only" for="inline-form-input-username"
-              >Username</label
-            >
-            <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-              <b-input
-                id="inline-form-input-email"
-                placeholder="Email"
-              ></b-input>
-            </b-input-group>
-
-            <b-button v-on:click="getUser()" variant="primary"
-              >GetUser</b-button
-            >
-            <b-button v-on:click="createUser()" variant="primary"
-              >CreateUser</b-button
-            >
-            
-          </b-form>
+    <div v-if="userId" class="header-contents">
+      <div class="left">
+        <div class="username-container">
+          <span class="username"
+            >Current user : <b>{{ username }}</b></span
+          >
         </div>
-            <b-nav-item-dropdown v-if="!isHidden" right>
-              <template #button-content>
-                <em >%{username}</em>
-              </template>
-              <b-dropdown-item v-on:click="updateUser()">Update profile</b-dropdown-item>
-              <b-dropdown-item v-on:click="deleteUser()">Delete profile</b-dropdown-item>
-              <b-dropdown-item v-on:click="logout()" >Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
+      </div>
+      <div class="center">
+        <div class="today-container">
+          <span class="today">{{ today }}</span>
+        </div>
+      </div>
+      <div class="right">
+        <div
+          v-if="settingActive && createForm"
+          id="createForm"
+          class="header-form"
+        >
+          <form action=""></form>
+        </div>
+        <div
+          v-if="settingActive && changeForm"
+          id="changeForm"
+          class="header-form"
+        >
+          <form action=""></form>
+        </div>
+        <div
+          v-if="settingActive && updateForm"
+          id="updateForm"
+          class="header-form"
+        >
+          <form action=""></form>
+        </div>
+        <div
+          v-if="settingActive && deleteForm"
+          id="deleteForm"
+          class="header-form"
+        >
+          <label for="">Confirm ?</label>
+          <button>Yes</button>
+        </div>
+
+        <button
+          id="settings-btn"
+          v-bind:class="{ settingActive: settingActive }"
+          @click.stop="activateSetting"
+        >
+          <div class="img-container">
+            <img v-if="!settingActive" src="../assets/icons/settings.svg" />
+            <img
+              v-if="settingActive"
+              src="../assets/icons/back-arrow.svg"
+              alt=""
+            />
+          </div>
+        </button>
+        <div
+          v-if="settingActive && dropDownActive"
+          class="setting-dropdown"
+          v-on:click.stop
+        >
+          <h2>User</h2>
+          <ul>
+            <li id="update" @click.stop="display('update')">Update</li>
+            <li id="change" @click.stop="display('change')">Change</li>
+            <li id="create" @click.stop="display('create')">Create</li>
+            <li id="delete" @click.stop="display('delete')">Delete Current</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div v-if="!userID" class="center-card">
+
+    <div v-else class="center-card">
       <h1>Select or Create a user</h1>
       <b-form class="center-form" v-on:submit.prevent="getUser()">
         <label class="sr-only" for="inline-form-input-name">Name</label>
@@ -90,19 +111,60 @@
 import axios from "axios";
 import VueAxios from "vue-axios";
 import Vue from "vue";
+import moment from "moment";
 Vue.use(VueAxios, axios);
 
 export default {
   data: function() {
     return {
-      userID: null,
-      username: "",
+      userId: 1,
+      username: "Azerty",
       email: "",
+      settingActive: false,
+      dropDownActive: false,
       isHidden: true,
-      error: null
+      error: null,
+      createForm: false,
+      updateForm: false,
+      changeForm: false,
+      deleteForm: false,
+      today: moment().format("LL")
     };
   },
+  mounted() {
+    document.addEventListener("click", this.closeDropDown);
+  },
   methods: {
+    closeDropDown: function() {
+      this.dropDownActive = false;
+      this.settingActive = false;
+
+      this.createForm = false;
+      this.updateForm = false;
+      this.changeForm = false;
+      this.deleteForm = false;
+    },
+    activateSetting: function() {
+      this.settingActive = !this.settingActive;
+      this.dropDownActive = this.settingActive;
+      if (
+        this.createForm ||
+        this.updateForm ||
+        this.changeForm ||
+        this.deleteForm
+      ) {
+        this.settingActive = true;
+        this.dropDownActive = true;
+        this.createForm = false;
+        this.updateForm = false;
+        this.changeForm = false;
+        this.deleteForm = false;
+      }
+    },
+    display: function(type) {
+      this.dropDownActive = false;
+      this[`${type}Form`] = true;
+    },
     getUser: function() {
       let username_el = document.getElementById("inline-form-input-username");
       let email_el = document.getElementById("inline-form-input-email");
@@ -124,11 +186,12 @@ export default {
           .get(query)
           .then(response => {
             const user = response.data.data;
+            console.log(user);
             if (user) {
               this.isHidden = false;
               this.username = user.username;
               this.email = user.email;
-              this.userID = user.id;
+              this.userId = user.id;
               this.$store.dispatch("change", user.id);
             } else {
               console.log("User not found");
@@ -144,7 +207,7 @@ export default {
     updateUser: function() {
       let username_el = document.getElementById("inline-form-input-username");
       let email_el = document.getElementById("inline-form-input-email");
-      let query = "http://localhost:4000/api/users/" + this.userID;
+      let query = "http://localhost:4000/api/users/" + this.userId;
       axios
         .put(query, {
           username: username_el.value,
@@ -157,13 +220,13 @@ export default {
     },
 
     deleteUser: function() {
-      if (!this.userID) {
+      if (!this.userId) {
         alert("Cannot delete unselected user.");
       } else {
-        let query = "http://localhost:4000/api/users/" + this.userID;
+        let query = "http://localhost:4000/api/users/" + this.userId;
         axios.delete(query).then(() => {
           this.$store.dispatch("change", null);
-          this.userID = null;
+          this.userId = null;
           this.email = null;
           this.username = null;
           this.isHidden = true;
@@ -173,8 +236,9 @@ export default {
     },
 
     logout: function() {
-      localStorage.userID = null;
+      this.userId = null;
       this.isHidden = true;
+      this.$store.dispatch("change", null);
     },
 
     createUser: function() {
@@ -217,7 +281,7 @@ export default {
 
 <style lang="scss">
 header {
-  background-color: #575366;
+  background-color: #67899a;
   height: 100px;
 }
 .error {
@@ -268,6 +332,257 @@ header {
   }
   & .card-form-error {
     margin-top: 10px;
+  }
+}
+
+.header-contents {
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .left {
+    .username-container {
+      padding: 5px 20px;
+      background-color: rgb(200, 214, 212);
+      box-shadow: 0px 0 5px 0 rgba(200, 214, 212, 0.2);
+      display: flex;
+      border-radius: 100px;
+      & .username {
+        font-size: 18px;
+      }
+    }
+  }
+  .center {
+    transform: translate(-50%, -25%);
+    .today-container {
+      .today {
+        font-size: 18px;
+        color: white;
+        font-size: 22px;
+      }
+    }
+  }
+  .right {
+    position: relative;
+    & #settings-btn {
+      position: relative;
+      background-color: rgba(255, 255, 255, 0);
+      padding: 5px 20px;
+      z-index: 2;
+      padding-left: 0;
+      width: 120px;
+      height: 32px;
+      outline: none;
+      display: flex;
+      border-radius: 100px;
+      border: none;
+      &:not(.settingActive) {
+        & .img-container {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          padding-right: 85px;
+          padding-left: 10px;
+          height: 32px;
+          width: 120px;
+          background-color: rgb(224, 224, 224);
+          border-radius: 100px;
+          transition: 0.7s all ease;
+          display: flex;
+          right: 1px;
+          z-index: 0;
+          & img {
+            animation: spin 5s;
+            width: 30px;
+            margin: auto;
+          }
+        }
+
+        &::before {
+          transition: 2s all;
+          z-index: 2;
+          width: 100%;
+          height: 100%;
+          padding-left: 40px;
+          font-weight: 700;
+          color: #252525;
+          opacity: 1;
+          content: "Settings";
+          font-size: 15px;
+        }
+        &:hover {
+          &::before {
+            transition: 0.2s all;
+            opacity: 0;
+          }
+          & .img-container {
+            right: 1;
+            padding: 0;
+            width: 30px;
+            & img {
+              animation: spin 1s;
+            }
+          }
+        }
+        &:not(:hover) {
+          & .img-container {
+            & img {
+              animation: reverse-spin 1s;
+            }
+          }
+        }
+      }
+      &.settingActive {
+        margin: 0;
+        padding: 0;
+        &::before {
+          transition: 2s all;
+          opacity: 0;
+          font-weight: 700;
+          color: #252525;
+          font-size: 15px;
+          content: "Settings";
+        }
+        & .img-container {
+          right: 0;
+          padding: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 32px;
+          width: 120px;
+          position: absolute;
+          background-color: rgb(224, 224, 224);
+          border-radius: 100px;
+          display: flex;
+          & img {
+            animation: back-arrow-appear 0.4s;
+            width: 30px;
+            margin: auto;
+          }
+          right: 0;
+          padding: 0;
+          width: 40px;
+        }
+      }
+    }
+    & .setting-dropdown {
+      position: absolute;
+      top: 35px;
+      background-color: rgb(224, 224, 224);
+      border-radius: 10px;
+      width: 120px;
+      box-shadow: 0px 0 10px 0 rgba(92, 92, 92, 0.2);
+      & h2 {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 800;
+      }
+      & ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        & li {
+          cursor: pointer;
+          color: rgb(39, 39, 39);
+          border-top: 1px solid rgba(163, 163, 163, 0.2);
+          padding: 7px 0;
+          &:hover {
+            font-weight: bold;
+            opacity: 0.9;
+          }
+          &#create {
+            background-color: #a0d4c0d5;
+          }
+          &#delete {
+            background-color: #d4a2a0d8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.header-form {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+  right: 70px;
+  height: 100%;
+  animation: form-appear 0.7s ease-out;
+  &#deleteForm {
+    background-color: rgb(224, 224, 224);
+    padding: 20px 20px;
+    border-radius: 10px;
+    margin-top: -5px;
+    & label {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 800;
+      color: rgb(54, 46, 46);
+    }
+    & button {
+      background-color: #d4a2a0d8;
+      font-weight: bold;
+    }
+    width: 180px;
+  }
+  & button {
+    z-index: 5;
+    transition: 0.25s all;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 10px;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverse-spin {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes back-arrow-appear {
+  0% {
+    opacity: 0.5;
+    transform: rotate(-120deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes form-appear {
+  0% {
+    opacity: 0;
+    position: absolute;
+    right: -50px;
+  }
+  100% {
+    opacity: 1;
+    right: 70px;
   }
 }
 </style>
