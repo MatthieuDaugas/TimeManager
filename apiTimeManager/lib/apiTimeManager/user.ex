@@ -22,6 +22,14 @@ defmodule ApiTimeManager.Users do
     Repo.all(User)
   end
 
+  def get_users_list(params) do
+    match = params["match"]
+    like = "%#{match }%"
+    from(user in User,
+    where: like(fragment("lower(?)", user.username), ^like) or like(fragment("lower(?)", user.email), ^like))
+    |> Repo.all
+  end
+
   @doc """
   Gets a single user.
 
