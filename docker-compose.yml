@@ -10,7 +10,7 @@ services:
       context: ./apiTimeManager
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: postgres://postgres@localhost:5432/apitimemanager_dev
+      DATABASE_URL: postgres://postgres@db5432/apitimemanager_dev
     ports:
       - "4000:4000"
     command: './entrypoint.sh'

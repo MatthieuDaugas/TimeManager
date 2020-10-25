@@ -1,6 +1,4 @@
 #!/bin/bash
-# Docker entrypoint script.
-
 mix deps.get
 
 mix ecto.create
