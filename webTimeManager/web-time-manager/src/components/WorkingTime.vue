@@ -1,5 +1,5 @@
 <template>
-  <div v-if="selectedWorkingTime" class="WorkingTime" style="margin-top:3%;">
+  <div v-if="selectedWorkingTime" class="WorkingTime page">
     <div class="create-button-div">
       <b-button variant="primary" @click.stop="onCreateClick">
         Create
@@ -164,7 +164,7 @@ export default {
 <style lang="scss">
 .create-button-div {
   width: 100px;
-  margin: auto;
+  margin: 0 auto;
   margin-bottom: 50px;
 }
 .times {

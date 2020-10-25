@@ -1,5 +1,5 @@
 <template>
-  <div class="working-times">
+    <div class="working-times page">
     <h1>WorkingTimes</h1>
     <div id="date-filters">
       <div class="date-filter">

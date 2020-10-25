@@ -39,23 +39,27 @@ export default {
   created: function() {
     this.refresh(this.page);
   },
+  watch: {
+    page: function(page) {
+      this.refresh(page);
+    }
+  },
   methods: {
     pageArray() {
       const nbPages = this.totalPages > 9 ? 9 : this.totalPages;
       return Array.from(Array(nbPages), (_, i) => i + this.minPage);
     },
     chosenPage(page) {
-      console.log(page);
       if (page !== this.page && page > 0 && page <= this.totalPages) {
         this.$emit("changePage", page);
       }
     },
     refresh(page) {
-      if (this.totalPages > 5 && page > 2) {
+      if (this.totalPages > 9 && page > 6) {
         if (page + 1 < this.totalPages) {
-          this.minPage = page - 2;
+          this.minPage = page - 6;
         } else {
-          this.minPage = this.totalPages - 4;
+          this.minPage = this.totalPages - 8;
         }
       } else {
         this.minPage = 1;

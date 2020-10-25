@@ -1,5 +1,5 @@
 <template>
-  <div class="clocks">
+  <div class="clocks page">
     <h1>Clock</h1>
 
     <div>
@@ -81,7 +81,6 @@ export default {
           this.startDateTime = this.formatDate(clock.time)
           this.clockIn = !this.clockIn;
           if (this.page === 1) {
-            console.log(this.data[0].status);
             if (this.data[0].status) {
               this.data[0].status = false;
               this.data[0].end = this.startDateTime;
@@ -98,7 +97,6 @@ export default {
         )
         .then(res => {
           const clocks = res?.data?.data;
-          console.log(clocks);
           if (clocks) {
             if (this.page === 1) {
               const lastClock = clocks[0] || { status: false };

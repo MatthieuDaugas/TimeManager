@@ -9,7 +9,7 @@
       <div class="main-container w-100 d-flex flex-column position-relative ">
         <User />
         <div v-if="userId"
-          class=" page d-flex justify-content-center  p-0  mx-auto flex-column position-relative"
+          class=" p-0 d-flex h-100 w-100 mx-auto position-relative"
         >
           <router-view />
         </div>
@@ -62,9 +62,5 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
-.page {
-  width: 80%;
-  height: 100vh;
 }
 </style>
