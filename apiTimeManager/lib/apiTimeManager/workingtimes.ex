@@ -47,7 +47,6 @@ defmodule ApiTimeManager.WorkingTimes do
 
   def get_working_time_all(params) do
     where = [user_id: params["user_id"]]
-
     startDate =
       if params["start"] do
         dynamic([workingtime], workingtime.start >= ^params["start"])

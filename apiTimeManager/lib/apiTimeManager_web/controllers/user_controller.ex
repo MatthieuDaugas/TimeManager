@@ -20,6 +20,16 @@ defmodule ApiTimeManagerWeb.UserController do
     end
   end
 
+  def getallusers(conn,user_params) do
+    users = Users.get_all_users()
+    render(conn, "index.json", users: users)
+  end
+
+  def get_list(conn, params) do
+    users = Users.get_users_list(params)
+    render(conn, "index.json", users: users)
+  end
+
   def show(conn, %{"id" => id}) do
     user = Users.get_user(id)
     render(conn, "show.json", user: user)

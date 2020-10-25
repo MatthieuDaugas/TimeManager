@@ -19,11 +19,32 @@ defmodule ApiTimeManager.Clocks do
   """
   def list_clocks_by_user(params) do
     where = [user_id: params["user_id"]]
+    page = params["page"]
+    limit = if page do
+      20
+    else
+      nil
+    end
+    offset = if limit do
+      limit * ( String.to_integer(page) - 1 )
+    else
+      nil
+    end
+    IO.puts(page)
     Clock
     |> where(^where)
+    |> order_by([desc: :time])
+    |> limit(^limit)
+    |> offset(^offset)
     |> Repo.all()
   end
 
+    def count_clocks(params) do
+      where = [user_id: params["user_id"]]
+      Clock
+      |> where(^where)
+      |> Repo.aggregate(:count, :id)
+    end
   @doc """
   Gets a single clock.
 

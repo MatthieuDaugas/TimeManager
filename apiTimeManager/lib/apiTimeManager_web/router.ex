@@ -9,8 +9,10 @@ defmodule ApiTimeManagerWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:index]
     get "/users", UserController, :check
+    get "/users/list/get", UserController, :get_list
     options "/users/", UserController, :options
     options "/users/:userID", UserController, :options
+    get "/allusers", UserController, :getallusers
 
     get "/workingtimes/:user_id", WorkingTimeController, :get_all
     get "/workingtimes/:user_id/:workingtimeID", WorkingTimeController, :get_one
