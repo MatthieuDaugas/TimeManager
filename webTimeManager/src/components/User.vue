@@ -76,7 +76,7 @@ Vue.use(VueAxios, axios);
 export default {
   data: function() {
     return {
-      userId: "1",
+      userId: null,
       username: null,
       email: null,
       error: null,

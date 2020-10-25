@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :apiTimeManager, ApiTimeManager.Repo,
   username: "postgres",
-  password: "root",
+  password: "postgres",
   database: "apitimemanager_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
