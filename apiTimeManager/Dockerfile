@@ -12,6 +12,7 @@ WORKDIR /app
 
 # Install hex package manager
 RUN mix local.hex --force
+RUN mix local.rebar --force
 RUN mix archive.install hex phx_new 1.5.6
 
 # Compile the project
