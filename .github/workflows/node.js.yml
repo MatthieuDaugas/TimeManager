@@ -1,6 +1,9 @@
 name: Node.js CI
 
 on: [push]
+defaults:
+  run:
+    working-directory: ./apiTimeManager
 
 jobs:
   build:
@@ -11,7 +14,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    working-directory: ./apiTimeManager 
     - run: mix test              
     env:
       CI: true
