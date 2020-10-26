@@ -13,12 +13,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: cd ./webTimeManager
-    - run: npm test
-    - run: cd ../apiTimeManager
-    - run: mix test 
+    - run: cd ./webTimeManager | npm test
+    - run: cd ../apiTimeManager | mix test
       env:
         CI: true
-    - name: Install dependencies
-      run: npm ci
-      
