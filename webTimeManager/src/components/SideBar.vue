@@ -1,8 +1,8 @@
 <template>
   <div class="h-100">
     <div class="sidebar col-12 h-100 w-100 p-0">
-      <div class="pt-5 mb-4 logo">
-        <img src="../assets/logo.png" alt="homepage" class="light-logo" />
+      <div class="pt-4 mb-4 logo">
+        <img src="../assets/logo.svg" alt="homepage" />
       </div>
 
       <ul v-if="userId" class="general navigation">
@@ -60,7 +60,7 @@ export default {
   max-width: 100%;
   height: auto;
   & img {
-    max-width: 60%;
+    width: 40%;
     height: auto;
   }
 }

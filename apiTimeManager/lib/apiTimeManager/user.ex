@@ -26,7 +26,9 @@ defmodule ApiTimeManager.Users do
     match = params["match"]
     like = "%#{match }%"
     from(user in User,
-    where: like(fragment("lower(?)", user.username), ^like) or like(fragment("lower(?)", user.email), ^like))
+    where: like(fragment("lower(?)", user.username), ^like) or like(fragment("lower(?)", user.email), ^like),
+    limit: 10,
+    order_by: [asc: user.username])
     |> Repo.all
   end
 

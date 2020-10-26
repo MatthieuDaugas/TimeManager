@@ -90,9 +90,10 @@
       @mouseover="activeDropDown(true)"
       @mouseleave="activeDropDown(false)"
       @click="clickBack"
+      :disabled="!queryOk"
     >
       <div class="img-container">
-        <img v-if="!settingActive" src="../assets/icons/settings.svg" />
+        <img v-if="!settingActive" src="../assets/icons/settings.svg" alt="" />
         <img v-if="settingActive" src="../assets/icons/back-arrow.svg" alt="" />
       </div>
     </button>
@@ -112,7 +113,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import AutoCompleteField from "./AutoCompleteField";
@@ -297,6 +297,7 @@ export default {
     &.settingActive {
       margin: 0;
       padding: 0;
+      transition: all .2s;
       &::before {
         transition: 2s all;
         opacity: 0;
@@ -306,6 +307,7 @@ export default {
         content: "Settings";
       }
       & .img-container {
+        transition: .3s all;
         right: 0;
         padding: 0;
         top: 50%;
@@ -324,6 +326,12 @@ export default {
         right: 0;
         padding: 0;
         width: 40px;
+      }
+      &:not(:disabled):hover {
+        opacity: .7;
+      }
+      &:disabled .img-container{
+        background-color: rgb(180,180,180);
       }
     }
   }
