@@ -11,7 +11,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: mix test
-      with: cd ./apiTimeManager
-      env:
-        CI: true
+    - run: |
+        cd ./apiTimeManager
+        mix test
+    env:
+      CI: true
