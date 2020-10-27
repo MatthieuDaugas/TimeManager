@@ -11,5 +11,5 @@ jobs:
         docker-compose build
         docker-compose up
     - name: Mix test
-        working-directory: ./apiTimeManager
-        run: mix test
+      working-directory: ./apiTimeManager
+      run: mix test
