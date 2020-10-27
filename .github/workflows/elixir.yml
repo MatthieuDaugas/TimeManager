@@ -2,7 +2,7 @@ name: actions
 on: [push]
 defaults:  
   run:  
-    working-directory: D:\MSC1\GIT_REPO\TimeManager\apiTimeManager
+    working-directory: D:/MSC1/GIT_REPO/TimeManager/apiTimeManager
 jobs:
   build:
     runs-on: windows-latest
