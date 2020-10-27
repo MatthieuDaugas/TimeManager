@@ -12,5 +12,4 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Install Docker    
-      run: |
-      docker-compose build
+      run: docker-compose build
