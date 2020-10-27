@@ -11,5 +11,5 @@ jobs:
         with:
           otp-version: 22.2.6
           elixir-version: 1.10.1
-        working-directory: ${{env.working-directory}}
+        working-directory: ./apiTimeManager
         - run: mix test 
