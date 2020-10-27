@@ -1,7 +1,7 @@
 name: CI
 
 on: push
-default:
+defaults:
   run:
     working-directory: ./apiTimeManager
 
