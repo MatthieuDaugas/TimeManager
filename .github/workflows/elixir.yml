@@ -1,9 +1,9 @@
 name: actions
 on: [push]
 
-run:
+defaults:
   working-directory: ./apiTimeManager
-  
+
 jobs:
   test:
     runs-on: windows-latest
