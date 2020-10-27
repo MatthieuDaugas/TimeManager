@@ -1,15 +1,17 @@
-name: Docker & Mix 
+name: actions
 on: [push]
-
+defaults:  
+  run:  
+    working-directory: ./apiTimeManager
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Docker build&up
+    - name: Install Dependencies
       run: |
-        docker-compose build
-        docker-compose up
-    - name: Mix test
-      working-directory: ./apiTimeManager
+        mix local.rebar --force
+        mix local.hex --force
+        mix deps.get
+    - name: Run Tests
       run: mix test
