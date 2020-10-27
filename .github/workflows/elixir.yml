@@ -13,5 +13,4 @@ jobs:
 
     - name: Install Docker    
       run: |
-      apt-get install docker-compose 
       docker-compose build
