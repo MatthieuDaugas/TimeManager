@@ -17,6 +17,5 @@ jobs:
         run: echo "Elixir ${{steps.setup-elixir.outputs.elixir-version}} / OTP ${{steps.setup-elixir.outputs.otp-version}}"
       - name: Run Mix project tests
         run: |-
-          cd test-project
           mix deps.get
           mix test
