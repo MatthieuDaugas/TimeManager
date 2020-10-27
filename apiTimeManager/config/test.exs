@@ -7,7 +7,7 @@ use Mix.Config
 # Run `mix help test` for more information.
 config :apiTimeManager, ApiTimeManager.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "root",
   database: "apitimemanager_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
@@ -16,7 +16,7 @@ config :apiTimeManager, ApiTimeManager.Repo,
 # you can enable the server option below.
 config :apiTimeManager, ApiTimeManagerWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: true
 
 # Print only warnings and errors during test
 config :logger, level: :warn
