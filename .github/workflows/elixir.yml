@@ -1,6 +1,8 @@
 name: actions
 on: [push]
-
+defaults:  
+&nbsp; run:  
+&nbsp; &nbsp; working-directory: ./apiTimeManager
 jobs:
   build:
     runs-on: windows-latest
@@ -11,5 +13,4 @@ jobs:
         with:
           otp-version: 22.2.6
           elixir-version: 1.10.1
-        working-directory: ./apiTimeManager
-        - run: mix test 
+      - run: mix test 
