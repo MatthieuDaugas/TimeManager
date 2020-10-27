@@ -2,8 +2,8 @@ name: actions
 on: [push]
 
 defaults:
-  working-directory: ./apiTimeManager
-
+  run:
+    working-directory: ./apiTimeManager
 jobs:
   test:
     runs-on: windows-latest
