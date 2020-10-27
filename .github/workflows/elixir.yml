@@ -1,20 +1,17 @@
-name: actions
+name: Docker & Mix 
 on: [push]
-defaults:  
-  run:  
-    working-directory: ./apiTimeManager
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: elixir:1.9.1
-
     steps:
     - uses: actions/checkout@v1
     - name: Install Dependencies
       run: |
-        mix local.rebar --force
-        mix local.hex --force
-        mix deps.get
-    - name: Run Tests
-      run: mix test
+        docker-compose build
+        docker-compose up
+        defaults:  
+      
+      run:  
+        working-directory: ./apiTimeManager
+        - run: cd
