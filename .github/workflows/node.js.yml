@@ -1,9 +1,10 @@
-name: actions
-on: [push]
+name: Node.js CI
 
-run:
-  working-directory: ./apiTimeManager
-  
+on: [push]
+defaults:
+  run:
+    working-directory: ./apiTimeManager
+
 jobs:
   test:
     runs-on: windows-latest
@@ -21,3 +22,4 @@ jobs:
       - uses: actions/cache@v1
       - uses: actions/cache@v1
       - run: mix test
+    
