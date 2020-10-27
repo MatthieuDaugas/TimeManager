@@ -2,7 +2,7 @@ name: actions
 on: [push]
 defaults:  
   run:  
-    working-directory: ./apiTimeManager
+    working-directory: D:\MSC1\GIT_REPO\TimeManager\apiTimeManager
 jobs:
   build:
     runs-on: windows-latest
@@ -13,4 +13,5 @@ jobs:
           otp-version: 22.2.6
           elixir-version: 1.10.1
       - run: pwd
-       
+      - run: mix test
+
