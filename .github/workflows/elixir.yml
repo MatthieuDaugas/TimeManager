@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: docker:latest
+      image: adawalli/dockercompose:latest
 
     steps:
     - uses: actions/checkout@v1
