@@ -4,9 +4,6 @@ on: push
 
 jobs:
   test:
-    defaults:
-      run:
-        working-directory: ./apiTimeManager
     runs-on: ubuntu-latest
     services:
       postgres:
