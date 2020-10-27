@@ -29,26 +29,21 @@ jobs:
         mix local.rebar --force
       
       - name: Mix install hex
-        working-directory: ./apiTimeManager
         run: |        
         mix local.hex --force
       
       - name: Mix ecto create
-        working-directory: ./apiTimeManager
         run: |        
         mix ecto.create
       
       - name: Mix ecto migrate
-        working-directory: ./apiTimeManager
         run: |
         mix ecto.migrate
       
       - name: Mix get deps
-        working-directory: ./apiTimeManager
         run: |        
         mix deps.get
       
       - name: Mix run test
-        working-directory: ./apiTimeManager
         run: |
         mix test
