@@ -32,9 +32,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - uses: nanasess/setup-chromedriver@master
-        with:
-          chromedriver-version: '79.0.3945.36'
       working-directory: ${{env.working-directory}}
       - run: mix local.rebar --force
       - run: mix local.hex --force
