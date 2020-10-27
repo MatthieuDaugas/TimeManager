@@ -1,6 +1,9 @@
 name: CI
 
 on: push
+default:
+  run:
+    working-directory: ./apiTimeManager
 
 jobs:
   test:
@@ -23,27 +26,10 @@ jobs:
           otp-version: 22.2.6
           elixir-version: 1.10.1      
 
-      - name: Mix install rebar
-        working-directory: ./apiTimeManager
-        run: |
-        mix local.rebar --force
-      
-      - name: Mix install hex
-        run: |        
-        mix local.hex --force
-      
-      - name: Mix ecto create
-        run: |        
-        mix ecto.create
-      
-      - name: Mix ecto migrate
-        run: |
-        mix ecto.migrate
-      
-      - name: Mix get deps
-        run: |        
-        mix deps.get
-      
-      - name: Mix run test
-        run: |
-        mix test
+      - name: Mix actions
+      - run: mix local.rebar --force
+      - run: mix local.hex --force
+      - run: mix ecto.create
+      - run: mix ecto.migrate
+      - run: mix deps.get
+      - run: mix test
