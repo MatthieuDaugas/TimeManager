@@ -13,8 +13,8 @@ jobs:
         image: postgres:11
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: my_app_test
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: apitimemanager_test_db
         ports:
         - 5432:5432
     env:
