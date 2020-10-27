@@ -6,10 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: docker:latest
+      image: elixir:latest
+    
+    service:
+      psotgres:
+        image: postgres
+        env:
+          POSTGRES_USER=postgres
+          POSTGRES_PASSWORD=root
 
     steps:
     - uses: actions/checkout@v1
 
     - name: Install psotgres container    
-      run: docker run postgres:latest -p "5432:5432" -e POSTGRES_PASSWORD=postgres -d postgres
+      run: 
