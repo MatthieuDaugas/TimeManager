@@ -11,6 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install Docker
-      run: apt-get install docker-compose
-      run: docker-compose build
+    - name: Install Docker    
+      run: |
+      apt-get install docker-compose 
+      docker-compose build
