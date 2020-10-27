@@ -11,6 +11,6 @@ jobs:
           otp-version: 22.2.6
           elixir-version: 1.10.1
       
-      - run: cd ./apiTimeManager && cd 
+      - run: cd apiTimeManager && cd 
       - run: dir 
 
