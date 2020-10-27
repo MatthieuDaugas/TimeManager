@@ -4,10 +4,6 @@ on: push
 
 jobs:
   test:
-    defaults:
-      - run:
-        working-directory: ./apiTimeManager
-    
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -28,6 +24,7 @@ jobs:
           elixir-version: 1.10.1      
 
       - name: Mix actions
+        working-directory: ./apiTimeManager
       - run: mix local.rebar --force
       - run: mix local.hex --force
       - run: mix ecto.create
