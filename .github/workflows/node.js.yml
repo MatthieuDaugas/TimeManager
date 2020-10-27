@@ -6,20 +6,14 @@ defaults:
     working-directory: ./apiTimeManager
 
 jobs:
-  test:
+  build:
     runs-on: windows-latest
-
-    env:
-      MIX_ENV: test
-
-    services:
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-elixir@v1
-        with:
-          otp-version: 22.2.6
-          elixir-version: 1.10.1
-      - uses: actions/cache@v1
-      - uses: actions/cache@v1
-      - run: mix test
-    
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: mix test       
+    env:
+      CI: true
