@@ -6,7 +6,8 @@ defaults:
 jobs:
   build:
     runs-on: windows-latest
-    image: elixir:1.9.1
+    container:
+      image: elixir:1.9.1
 
     steps:
     - uses: actions/checkout@v1
