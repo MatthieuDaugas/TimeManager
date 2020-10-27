@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: elixir:1.9.1
       image: docker:latest
 
     steps:
@@ -17,10 +16,3 @@ jobs:
     - name: Install Docker
       run: |
         docker-compose build
-    - name: Install Dependencies
-      run: |
-        mix local.rebar --force
-        mix local.hex --force
-        mix deps.get
-    - name: Run Tests
-      run: mix test
