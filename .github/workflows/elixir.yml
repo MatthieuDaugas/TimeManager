@@ -4,12 +4,6 @@ on: [push]
 defaults:
   run:
     working-directory: ./apiTimeManager
-jobs:
-  test:
-    runs-on: windows-latest
-
-    env:
-      MIX_ENV: test
 
 jobs:
   build:
