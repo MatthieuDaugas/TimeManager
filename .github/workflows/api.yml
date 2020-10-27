@@ -1,12 +1,13 @@
 name: CI
 
 on: push
-defaults:
-  run:
-    working-directory: ./apiTimeManager
 
 jobs:
   test:
+    defaults:
+      run:
+        working-directory: ./apiTimeManager
+    
     runs-on: ubuntu-latest
     services:
       postgres:
