@@ -21,12 +21,12 @@ defmodule ApiTimeManager.WorkingTimesTest do
 
     test "list_working_times/0 returns all working_times" do
       working_time = working_time_fixture()
-      assert WorkingTimes.list_working_times() == [working_time]
+      assert WorkingTimes.get_working_time_all("1") == [working_time]
     end
 
     test "get_working_time!/1 returns the working_time with given id" do
       working_time = working_time_fixture()
-      assert WorkingTimes.get_working_time!(working_time.id) == working_time
+      assert WorkingTimes.get_working_time_one(working_time.id) == working_time
     end
 
     test "create_working_time/1 with valid data creates a working_time" do

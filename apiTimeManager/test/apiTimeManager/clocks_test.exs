@@ -26,7 +26,7 @@ defmodule ApiTimeManager.ClocksTest do
 
     test "get_clock!/1 returns the clock with given id" do
       clock = clock_fixture()
-      assert Clocks.get_clock!(clock.id) == clock
+      assert Clocks.get_clock(clock.id) == clock
     end
 
     test "create_clock/1 with valid data creates a clock" do
@@ -49,7 +49,7 @@ defmodule ApiTimeManager.ClocksTest do
     test "update_clock/2 with invalid data returns error changeset" do
       clock = clock_fixture()
       assert {:error, %Ecto.Changeset{}} = Clocks.update_clock(clock, @invalid_attrs)
-      assert clock == Clocks.get_clock!(clock.id)
+      assert clock == Clocks.get_clock(clock.id)
     end
 
     test "delete_clock/1 deletes the clock" do
