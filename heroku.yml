@@ -5,19 +5,20 @@ on:
  - thomas
  
 jobs:
- build:
- runs-on: ubuntu-latest
- steps:
- - name: Checkout
- uses: actions/checkout@v2
- - name: Build, Push and Deploy to Heroku
- id: heroku
- uses: snithyanantham/docker-compose-multiple-apps-heroku-deploy@v1.0
- with:
- email: ${{ secrets.HEROKU_EMAIL }}
- api_key: ${{ secrets.HEROKU_API_KEY }}
- docker_compose_file: './docker-compose.yml'
- heroku_apps: '[
- {"imagename":"timemanager-epitech_db","appname":"timemanager-postgres","apptype":"web"},{"imagename":"timemanager-epitech_client","appname":"timemanager-client","apptype":"web"},
- {"imagename":"timemanager-epitech_server","appname":"timemanager-server","apptype":"web"}
- ]'
+    build:
+    runs-on: ubuntu-latest
+steps:
+  - name: Checkout
+      uses: actions/checkout@v2
+  - name: Build, Push and Deploy to Heroku
+      id: heroku
+      uses: snithyanantham/docker-compose-multiple-apps-heroku-deploy@v1.0
+      with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          api_key: ${{ secrets.HEROKU_API_KEY }}
+          docker_compose_file: './docker-compose.yml'
+          heroku_apps: '[
+              {"imagename":"postgres","appname":"timemanager-db","apptype":"web"},
+              {"imagename":"timemanager_vuejs","appname":"timemanager-front","apptype":"web"},
+              {"imagename":"timemanager_phoenix","appname":"timemanager-back","apptype":"web"}
+              ]'
